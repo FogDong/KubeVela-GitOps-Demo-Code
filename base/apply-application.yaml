@@ -1,7 +1,7 @@
 apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
-  name: first-vela-workflow
+  name: first-vela-workflow-test
   namespace: default
 spec:
   components:
