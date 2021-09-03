@@ -16,7 +16,7 @@ spec:
         domain: testsvc.example.com
         http:
           /: 8000
-  - name: nginx-server
+  - name: nginx-server-test
     type: webservice
     properties:
       image: nginx:1.21
