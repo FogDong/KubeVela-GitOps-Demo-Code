@@ -24,4 +24,4 @@ spec:
   workflow:
     steps:
       - name: express-server
-        type: apply-application
+        type: my-application
