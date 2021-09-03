@@ -13,7 +13,7 @@ spec:
     traits:
     - type: ingress
       properties:
-        domain: testsvc.example.com
+        domain: testsvc-test.example.com
         http:
           /: 8000
   - name: nginx-server-test
