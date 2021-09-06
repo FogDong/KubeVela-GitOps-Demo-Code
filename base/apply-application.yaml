@@ -15,7 +15,7 @@ spec:
       properties:
         domain: testsvc-test.example.com
         http:
-          /: 8000
+          /: 9898
   - name: nginx-server-test
     type: webservice
     properties:
