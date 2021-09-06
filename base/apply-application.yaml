@@ -9,7 +9,7 @@ spec:
     type: webservice
     properties:
       image: stefanprodan/podinfo
-      port: 8000
+      port: 9898
     traits:
     - type: ingress
       properties:
