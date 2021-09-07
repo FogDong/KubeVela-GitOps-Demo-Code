@@ -21,3 +21,21 @@ spec:
     properties:
       image: nginx:1.21
       port: 80
+
+  policies:
+    - name: my-policy
+      type: env-binding
+      properties:
+        clusterManagementEngine: single-cluster
+        envs:
+          - name: my-env
+            placement:
+              namespaceSelector:
+                name: prod
+  workflow:
+    steps:
+      - name: multi-env
+        type: multi-env
+        properties:
+          policy: my-policy
+          env: my-env
