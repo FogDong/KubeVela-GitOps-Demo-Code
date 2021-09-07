@@ -21,7 +21,23 @@ spec:
     properties:
       image: nginx:1.21
       port: 80
+
+  policies:
+    - name: my-policy
+      type: env-binding
+      properties:
+        clusterManagementEngine: single-cluster
+        envs:
+          - name: my-env
+            placement:
+              namespaceSelector:
+                name: test
   workflow:
     steps:
-      - name: express-server
-        type: apply-application
+      - name: deploy-test-env
+        type: multi-env
+        properties:
+          # 指定 policy 名称
+          policy: my-policy
+          # 指定 policy 中的 env 名称
+          env: my-env
