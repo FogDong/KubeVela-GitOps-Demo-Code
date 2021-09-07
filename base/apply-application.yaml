@@ -29,6 +29,13 @@ spec:
         clusterManagementEngine: single-cluster
         envs:
           - name: my-env
+            patch:
+              components:
+                - name: nginx-server
+                  type: webservice
+                  properties:
+                    image: nginx:1.20
+                    port: 80
             placement:
               namespaceSelector:
                 name: test
