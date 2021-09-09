@@ -27,11 +27,11 @@ jobs:
 
       - name: docker-build
         run: |
-          docker build -t ghcr.io/FogDong/test-fog:$(git rev-parse --short "$GITHUB_SHA") -f Dockerfile .
+          docker build -t ghcr.io/fogdong/test-fog:$(git rev-parse --short "$GITHUB_SHA") -f Dockerfile .
 
       - name: Login to GitHub Container Registry
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
 
       - name: docker-push
         run: |
-          docker push ghcr.io/FogDong/test-fog:$(git rev-parse --short "$GITHUB_SHA")
+          docker push ghcr.io/fogdong/test-fog:$(git rev-parse --short "$GITHUB_SHA")
