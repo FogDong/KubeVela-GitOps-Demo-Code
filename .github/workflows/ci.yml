@@ -41,6 +41,5 @@ jobs:
       uses: docker/build-push-action@v2
       with:
           push: true
-          context: .
           tags: |
             ${{ env.IMAGE }}:${{ steps.prep.outputs.BUILD_ID }}
