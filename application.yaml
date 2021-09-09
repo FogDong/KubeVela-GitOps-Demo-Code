@@ -8,7 +8,7 @@ spec:
     - name: express-server
       type: webservice
       properties:
-        image: registry.cn-hangzhou.aliyuncs.com/test-fog/test:v4 # {"$imagepolicy": "default:gitops"}
+        image: ghcr.io/fogdong/test-fog:cb00cfe # {"$imagepolicy": "default:gitops"}
         port: 8088
       traits:
         - type: ingress
