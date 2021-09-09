@@ -8,7 +8,7 @@ spec:
   - name: express-server
     type: webservice
     properties:
-      image: stefanprodan/podinfo
+      image: stefanprodan/podinfo # {"$imagepolicy": "default:gitops"}
       port: 9898
     traits:
     - type: ingress
