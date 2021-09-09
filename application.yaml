@@ -9,10 +9,10 @@ spec:
       type: webservice
       properties:
         image: registry.cn-hangzhou.aliyuncs.com/test-fog/test:v4 # {"$imagepolicy": "default:gitops"}
-        port: 9898
+        port: 8088
       traits:
         - type: ingress
           properties:
             domain: testsvc.example.com
             http:
-              /: 9898
+              /: 8088
