@@ -13,7 +13,7 @@ jobs:
     runs-on:
       - ubuntu-latest
     env:
-      IMAGE: fogdong/test-fog
+      IMAGE: ghcr.io/fogdong/test-fog
     if: "!contains(github.event.head_commit.message, 'Update image automatically')"
     steps:
     - name: Generate build ID
