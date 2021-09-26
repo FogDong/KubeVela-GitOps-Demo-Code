@@ -16,7 +16,7 @@ const VERSION = "0.1.7"
 func main() {
 	pwd := os.Getenv("DB_PASSWORD")
 	host := os.Getenv("DB_HOST")
-	db, err := sql.Open("mysql", fmt.Sprintf("root:%s@tcp(%s)/test", pwd, host))
+	db, err := sql.Open("mysql", fmt.Sprintf("root:%s@tcp(%s)/mysql", pwd, host))
 	if err != nil {
 		panic(err)
 	}
