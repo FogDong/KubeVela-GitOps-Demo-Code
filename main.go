@@ -13,6 +13,8 @@ import (
 
 const VERSION = "0.1.7"
 
+var db *sql.DB
+
 func main() {
 	pwd := os.Getenv("DB_PASSWORD")
 	host := os.Getenv("DB_HOST")
@@ -26,6 +28,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	CreateTable()
 
 	stmt, err := db.Prepare("INSERT userinfo SET username=?, description=?")
 	if err != nil {
@@ -45,13 +49,14 @@ func main() {
 			_, _ = fmt.Fprintf(w, "Error: %v\n", err)
 		}
 		for rows.Next() {
+			var userid int
 			var username string
-			var description string
-			err = rows.Scan(&username, &description)
+			var desc string
+			err = rows.Scan(&userid, &username, &desc)
 			if err != nil {
 				_, _ = fmt.Fprintf(w, "Scan Error: %v\n", err)
 			}
-			_, _ = fmt.Fprintf(w, "User: %s Description: %s\n", username, description)
+			_, _ = fmt.Fprintf(w, "User: %s Description: %s\n", username, desc)
 		}
 	})
 
@@ -59,3 +64,24 @@ func main() {
 		println(err.Error())
 	}
 }
+
+func CreateTable() {
+	stmt, err := db.Prepare(createTable)
+	if err != nil {
+		panic(err)
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec()
+	if err != nil {
+		panic(err)
+	}
+}
+
+var createTable = `
+CREATE TABLE IF NOT EXISTS userInfo (
+     user_id      INTEGER PRIMARY KEY AUTO_INCREMENT
+    ,username     VARCHAR(32)
+    ,desc         VARCHAR(32)
+);
+`
