@@ -1,6 +1,11 @@
 # Dockerfile
-FROM golang:1.13-rc-alpine3.10 as builder
+FROM golang:1.16-alpine as builder
 WORKDIR /app
+
+COPY go.mod go.mod
+COPY go.sum go.sum
+RUN go mod download
+
 COPY main.go .
 RUN go build -o kubevela-demo-cicd-app main.go
 
