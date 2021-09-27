@@ -11,7 +11,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-const VERSION = "0.1.7"
+const VERSION = "0.1.8"
 
 func main() {
 	pwd := os.Getenv("DB_PASSWORD")
@@ -51,7 +51,7 @@ func main() {
 	})
 
 	if err := http.ListenAndServe(":8088", nil); err != nil {
-		println(err.Error())
+		panic(err.Error())
 	}
 }
 
