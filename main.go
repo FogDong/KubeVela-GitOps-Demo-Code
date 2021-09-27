@@ -29,14 +29,7 @@ func main() {
 
 	CreateTable(db)
 
-	stmt, err := db.Prepare("INSERT userinfo SET username=?, description=?")
-	if err != nil {
-		panic(err)
-	}
-	_, err = stmt.Exec("KubeVela", "It's a test user")
-	if err != nil {
-		panic(err)
-	}
+	InsertInitData(db)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		_, _ = fmt.Fprintf(w, "Version: %s\n", VERSION)
@@ -47,14 +40,13 @@ func main() {
 			_, _ = fmt.Fprintf(w, "Error: %v\n", err)
 		}
 		for rows.Next() {
-			var userid int
 			var username string
 			var desc string
-			err = rows.Scan(&userid, &username, &desc)
+			err = rows.Scan(&username, &desc)
 			if err != nil {
 				_, _ = fmt.Fprintf(w, "Scan Error: %v\n", err)
 			}
-			_, _ = fmt.Fprintf(w, "User: %s Description: %s\n", username, desc)
+			_, _ = fmt.Fprintf(w, "User: %s \nDescription: %s\n\n", username, desc)
 		}
 	})
 
@@ -76,10 +68,26 @@ func CreateTable(db *sql.DB) {
 	}
 }
 
+func InsertInitData(db *sql.DB) {
+	stmt, err := db.Prepare(insertInitData)
+	if err != nil {
+		panic(err)
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec("KubeVela", "It's a test user")
+	if err != nil {
+		panic(err)
+	}
+}
+
 var createTable = `
-CREATE TABLE IF NOT EXISTS userInfo (
-     user_id      INTEGER PRIMARY KEY AUTO_INCREMENT
-    ,username     VARCHAR(32)
-    ,desc         VARCHAR(32)
+CREATE TABLE IF NOT EXISTS userinfo (
+  username     VARCHAR(32) PRIMARY KEY,
+  description  VARCHAR(32)
 );
+`
+
+var insertInitData = `
+INSERT IGNORE INTO userinfo SET username = ?, description = ?
 `
