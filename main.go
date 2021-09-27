@@ -13,8 +13,6 @@ import (
 
 const VERSION = "0.1.7"
 
-var db *sql.DB
-
 func main() {
 	pwd := os.Getenv("DB_PASSWORD")
 	host := os.Getenv("DB_HOST")
@@ -29,7 +27,7 @@ func main() {
 		panic(err)
 	}
 
-	CreateTable()
+	CreateTable(db)
 
 	stmt, err := db.Prepare("INSERT userinfo SET username=?, description=?")
 	if err != nil {
@@ -65,7 +63,7 @@ func main() {
 	}
 }
 
-func CreateTable() {
+func CreateTable(db *sql.DB) {
 	stmt, err := db.Prepare(createTable)
 	if err != nil {
 		panic(err)
